@@ -54,7 +54,5 @@ public class Main {
         CloseableHttpResponse response = client.execute(httpPost);
         Assert.assertEquals(response.getStatusLine().getStatusCode(), HttpStatus.SC_OK);
         client.close();
-
-        System.out.println("Hello World!");
     }
 }
