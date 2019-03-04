@@ -1,17 +1,11 @@
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.testng.Assert;
 
@@ -22,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        // prepare json file
         File myFile = new File("ThienTruongFlightAware.json");
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -39,10 +34,12 @@ public class Main {
         jsonGenerator.writeString("https://github.com/tcthien00/FlightAware");
         jsonGenerator.writeEndArray();
 
+        jsonGenerator.writeStringField("comment", "Please contact me for more information");
+
         jsonGenerator.writeEndObject();
         jsonGenerator.close();
 
-
+        // submit application
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://flightaware.com/about/careers/apply?data=");
 
